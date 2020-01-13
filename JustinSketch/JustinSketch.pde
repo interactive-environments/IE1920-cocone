@@ -16,9 +16,10 @@ PVector[] vectors1 = {new PVector(533, 241), new PVector(551, 241), new PVector(
 PVector[] vectors2 = {new PVector(236, 381), new PVector(429, 381), new PVector(241, 389), new PVector(427, 388)};
 PVector[] vectors3 = {new PVector(120, 236), new PVector(128, 229), new PVector(236, 382), new PVector(238, 377)};
 PVector[] vectors4 = {new PVector(105, 46), new PVector(108, 46), new PVector(114, 227), new PVector(118, 225)};
-PVector[][] allVectors = {vectors1, vectors2, vectors3, vectors4};
+PVector[] vectors5 = {new PVector(105, 10), new PVector(108, 11), new PVector(114, 40), new PVector(118, 42)};
+PVector[][] allVectors = {vectors1, vectors2, vectors3, vectors4, vectors5};
 void setup(){
-  size(960, 240);
+  size(1200, 240);
   if (mode == 1) airflowSetup();
   if (mode == 2) goldFishSetup();
   if (mode == 4) particleSetup();
@@ -28,10 +29,10 @@ void setup(){
   kinect.initDepth();
   depthImg = new PImage(kinect.width, kinect.height);
   
-  for (int j = 0; j < 4; j++){
+  for (int j = 0; j < 5; j++){
     for(int i = 0; i < 5; i++){
-      opc.ledStrip(i*64 + j*512, 16, width/5 + j*width/5, height/24 + height/12 + i*height/6, width/80, 0, true);
-      opc.ledStrip(16+i*64 + j*512, 15, width/5 + j*width/5, height/24 + height/6 + i*height/6, width/80, 0, false);
+      opc.ledStrip(i*64 + j*512, 16, width/6 + j*width/6, height/24 + height/12 + i*height/6, width/100, 0, true);
+      opc.ledStrip(16+i*64 + j*512, 15, width/6 + j*width/6, height/24 + height/6 + i*height/6, width/100, 0, false);
     }
   }
   
@@ -44,11 +45,12 @@ void draw(){
   touchPoints1.clear();
   touchPoints2.clear();
   touchPoints3.clear();
+  touchPoints4.clear();
   for (int i=0; i < rawDepth.length; i++) {
       int x = i % kinect.width;
       int y = i / kinect.width;
     if (rawDepth[i] >= minDepth && rawDepth[i] <= maxDepth) {
-      if (inBox(x, y, vectors1) || inBox(x, y, vectors2) || inBox(x, y, vectors3) || inBox(x, y, vectors4)){
+      if (inBox(x, y, vectors1) || inBox(x, y, vectors2) || inBox(x, y, vectors3) || inBox(x, y, vectors4) || inBox(x, y, vectors5)){
         touch(x, y, rawDepth[i]);
       }
     }
@@ -70,6 +72,10 @@ void draw(){
     //  airflowMouseDragged(touchPoints3.get(0), previous3);
     //  previous3 = touchPoints3.get(0);
     //}
+    //if (touchPoints4.size() > 0) {
+    //  airflowMouseDragged(touchPoints4.get(0), previous4);
+    //  previous4 = touchPoints4.get(0);
+    //}
     airflowMouseDragged(new PVector(mouseX, mouseY), previous0);
     previous0 = new PVector(mouseX, mouseY);
     airflowDraw();
@@ -78,6 +84,7 @@ void draw(){
     if (touchPoints1.size() > 0) handDragged(touchPoints1.get(0).x, touchPoints1.get(0).y);
     if (touchPoints2.size() > 0) handDragged(touchPoints2.get(0).x, touchPoints2.get(0).y);
     if (touchPoints3.size() > 0) handDragged(touchPoints3.get(0).x, touchPoints3.get(0).y);
+    if (touchPoints4.size() > 0) handDragged(touchPoints4.get(0).x, touchPoints3.get(0).y);
     
     goldFishDraw();
   } else if (mode == 3){
@@ -97,10 +104,12 @@ PVector previous0 = new PVector(0, 0);
 PVector previous1 = new PVector(0, 0);
 PVector previous2 = new PVector(0, 0);
 PVector previous3 = new PVector(0, 0);
+PVector previous4 = new PVector(0, 0);
 ArrayList<PVector> touchPoints0 = new ArrayList<PVector>();
 ArrayList<PVector> touchPoints1 = new ArrayList<PVector>();
 ArrayList<PVector> touchPoints2 = new ArrayList<PVector>();
 ArrayList<PVector> touchPoints3 = new ArrayList<PVector>();
+ArrayList<PVector> touchPoints4 = new ArrayList<PVector>();
 void touch(int x, int y, int depth){
   //touchPoints.clear();
   for (int i = 0; i < 4; i++){
@@ -124,6 +133,10 @@ void touch(int x, int y, int depth){
           dist0 = allVectors[i][0].dist(new PVector(x, y));
           dist1 = allVectors[i][2].dist(new PVector(x, y));
         break;
+        case 4:
+          dist0 = allVectors[i][0].dist(new PVector(x, y));
+          dist1 = allVectors[i][2].dist(new PVector(x, y));
+        break;
       }
       float totalDist = dist0 + dist1;
       if (i == 0) dist0 = dist1;
@@ -142,6 +155,9 @@ void touch(int x, int y, int depth){
         break;
         case 3:
         touchPoints3.add(new PVector(finalX, finalY));
+        break;
+        case 4:
+        touchPoints4.add(new PVector(finalX, finalY));
         break;
       }
     }

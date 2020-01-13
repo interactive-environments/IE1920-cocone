@@ -39,6 +39,7 @@ void particleDraw() {
   if (touchPoints1.size() > 0) allParticles.add(new Particle(touchPoints1.get(0).x, touchPoints1.get(0).y, maxLevel));
   if (touchPoints2.size() > 0) allParticles.add(new Particle(touchPoints2.get(0).x, touchPoints2.get(0).y, maxLevel));
   if (touchPoints3.size() > 0) allParticles.add(new Particle(touchPoints3.get(0).x, touchPoints3.get(0).y, maxLevel));
+  if (touchPoints4.size() > 0) allParticles.add(new Particle(touchPoints3.get(0).x, touchPoints3.get(0).y, maxLevel));
     
   HashMap<PVector,Integer> hm = new HashMap<PVector,Integer>();
   for (int i = allParticles.size()-1; i > -1; i--){
