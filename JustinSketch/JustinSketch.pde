@@ -12,11 +12,11 @@ import java.util.Map;
 int minDepth =  755;
 int maxDepth = 875;
 int mode = 1;
-PVector[] vectors1 = {new PVector(533, 241), new PVector(551, 241), new PVector(438, 370), new PVector(446, 373)};
-PVector[] vectors2 = {new PVector(236, 381), new PVector(429, 381), new PVector(241, 389), new PVector(427, 388)};
-PVector[] vectors3 = {new PVector(120, 236), new PVector(128, 229), new PVector(236, 382), new PVector(238, 377)};
-PVector[] vectors4 = {new PVector(105, 46), new PVector(108, 46), new PVector(114, 227), new PVector(118, 225)};
-PVector[] vectors5 = {new PVector(105, 10), new PVector(108, 11), new PVector(114, 40), new PVector(118, 42)};
+PVector[] vectors1 = {new PVector(526, 38), new PVector(535, 38), new PVector(552, 232), new PVector(562, 232)};
+PVector[] vectors2 = {new PVector(533, 241), new PVector(551, 241), new PVector(438, 370), new PVector(446, 373)};
+PVector[] vectors3 = {new PVector(236, 381), new PVector(429, 381), new PVector(241, 389), new PVector(427, 388)};
+PVector[] vectors4 = {new PVector(120, 236), new PVector(128, 229), new PVector(236, 382), new PVector(238, 377)};
+PVector[] vectors5 = {new PVector(97, 34), new PVector(109, 33), new PVector(116, 224), new PVector(125, 222)};
 PVector[][] allVectors = {vectors1, vectors2, vectors3, vectors4, vectors5};
 void setup(){
   size(1200, 240);
@@ -56,28 +56,28 @@ void draw(){
     }
   }
   if (mode == 1){
-    //if (touchPoints0.size() > 0) {
-    //  airflowMouseDragged(touchPoints0.get(0), previous0);
-    //  previous0 = touchPoints0.get(0);
-    //}
-    //if (touchPoints1.size() > 0) {
-    //  airflowMouseDragged(touchPoints1.get(0), previous1);
-    //  previous1 = touchPoints1.get(0);
-    //}
-    //if (touchPoints2.size() > 0) {
-    //  airflowMouseDragged(touchPoints2.get(0), previous2);
-    //  previous2 = touchPoints2.get(0);
-    //}
-    //if (touchPoints3.size() > 0) {
-    //  airflowMouseDragged(touchPoints3.get(0), previous3);
-    //  previous3 = touchPoints3.get(0);
-    //}
-    //if (touchPoints4.size() > 0) {
-    //  airflowMouseDragged(touchPoints4.get(0), previous4);
-    //  previous4 = touchPoints4.get(0);
-    //}
-    airflowMouseDragged(new PVector(mouseX, mouseY), previous0);
-    previous0 = new PVector(mouseX, mouseY);
+    if (touchPoints0.size() > 0) {
+      airflowMouseDragged(touchPoints0.get(0), previous0);
+      previous0 = touchPoints0.get(0);
+    }
+    if (touchPoints1.size() > 0) {
+      airflowMouseDragged(touchPoints1.get(0), previous1);
+      previous1 = touchPoints1.get(0);
+    }
+    if (touchPoints2.size() > 0) {
+      airflowMouseDragged(touchPoints2.get(0), previous2);
+      previous2 = touchPoints2.get(0);
+    }
+    if (touchPoints3.size() > 0) {
+      airflowMouseDragged(touchPoints3.get(0), previous3);
+      previous3 = touchPoints3.get(0);
+    }
+    if (touchPoints4.size() > 0) {
+      airflowMouseDragged(touchPoints4.get(0), previous4);
+      previous4 = touchPoints4.get(0);
+    }
+    //airflowMouseDragged(new PVector(mouseX, mouseY), previous0);
+    //previous0 = new PVector(mouseX, mouseY);
     airflowDraw();
   } else if (mode == 2){
     if (touchPoints0.size() > 0) handDragged(touchPoints0.get(0).x, touchPoints0.get(0).y);
@@ -112,18 +112,18 @@ ArrayList<PVector> touchPoints3 = new ArrayList<PVector>();
 ArrayList<PVector> touchPoints4 = new ArrayList<PVector>();
 void touch(int x, int y, int depth){
   //touchPoints.clear();
-  for (int i = 0; i < 4; i++){
+  for (int i = 0; i < 5; i++){
     if (inBox( x, y, allVectors[i])){
       float dist0 = 0;
       float dist1 = 0;
       switch(i){
         case 0:
-          dist0 = allVectors[i][0].dist(new PVector(x, y));
-          dist1 = allVectors[i][2].dist(new PVector(x, y));
+          dist0 = allVectors[i][2].dist(new PVector(x, y));
+          dist1 = allVectors[i][0].dist(new PVector(x, y));
         break;
         case 1:
-          dist0 = allVectors[i][0].dist(new PVector(x, y));
-          dist1 = allVectors[i][1].dist(new PVector(x, y));
+          dist0 = allVectors[i][1].dist(new PVector(x, y));
+          dist1 = allVectors[i][0].dist(new PVector(x, y));
         break;
         case 2:
           dist0 = allVectors[i][0].dist(new PVector(x, y));
@@ -139,9 +139,8 @@ void touch(int x, int y, int depth){
         break;
       }
       float totalDist = dist0 + dist1;
-      if (i == 0) dist0 = dist1;
       float xPercentage = dist0/totalDist;
-      int finalX = width-int(xPercentage*width/5 + (3-i) * width/5)-width/10;
+      int finalX = width-int(xPercentage*width/6 + (4-i) * width/6)-width/12;
       int finalY = (depth-minDepth)*height/(maxDepth-minDepth);
       switch(i){
         case 0:
