@@ -85,7 +85,7 @@ static  float sizex;
               int drawColor;
       
               colorMode(HSB, 360, 1, 1);
-              float hue = ((x + y) * 180 + frameCount) % 180 * 2;
+              float hue = ((x + y) * 180 + frameCount) % 360;
               drawColor = color(hue, 1, 1);
               colorMode(RGB, 1);
       

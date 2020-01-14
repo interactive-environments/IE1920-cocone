@@ -220,10 +220,10 @@ void keyPressed() {
 void switchSketch(boolean left){
   if (!left) {
     mode++;
-    if (mode > 3) mode -= 3;
+    if (mode > 4) mode -= 4;
   } else {
     mode--;
-    if (mode < 1) mode += 3;
+    if (mode < 1) mode += 4;
   }
   if (mode == 1) airflowSetup();
   if (mode == 2) goldFishSetup();
