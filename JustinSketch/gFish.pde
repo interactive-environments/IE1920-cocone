@@ -91,7 +91,7 @@ class gFish {
       ripples = addRip(ripples,pos.x,pos.y);
     }
     for (int k = 0; k < food.length; k++){
-      if (dist(pos.x,pos.y,food[k].x,food[k].y)< 2 && !food[k].eaten){
+      if (dist(pos.x,pos.y,food[k].x,food[k].y)< 10 && !food[k].eaten){
             food[k].eaten = true;
             foods++;
             if (random(20)<1){

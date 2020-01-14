@@ -26,7 +26,7 @@ void setup(){
   client.connect("mqtt://electro-forest:fe8708c4cd16348a@broker.shiftr.io", "processing", true);
   if (mode == 1) airflowSetup();
   if (mode == 2) goldFishSetup();
-  if (mode == 4) particleSetup();
+  if (mode == 3) particleSetup();
   ellipseMode(RADIUS);  // Set ellipseMode to RADIUS
   opc = new OPC(this, "127.0.0.1", 7890);
   kinect = new Kinect(this);
@@ -92,8 +92,8 @@ void draw(){
     
     goldFishDraw();
   } else if (mode == 3){
-  } else if (mode == 4){
     particleDraw();
+  } else if (mode == 4){
   }
   //push();
   //fill(255);
@@ -211,4 +211,19 @@ void keyPressed() {
   } else if (key == '1'){
     sendMessage(1);
   }
+  if (key == '4') switchSketch(true);
+  if (key == '6') switchSketch(false);
+}
+
+void switchSketch(boolean left){
+  if (!left) {
+    mode++;
+    if (mode > 3) mode -= 3;
+  } else {
+    mode--;
+    if (mode < 1) mode += 3;
+  }
+  if (mode == 1) airflowSetup();
+  if (mode == 2) goldFishSetup();
+  if (mode == 3) particleSetup();
 }
