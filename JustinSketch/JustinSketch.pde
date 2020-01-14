@@ -1,6 +1,8 @@
 import org.openkinect.freenect.*;
 import org.openkinect.processing.*;
+import mqtt.*;
 
+MQTTClient client;
 
 OPC opc;
 Kinect kinect;
@@ -20,6 +22,8 @@ PVector[] vectors5 = {new PVector(97, 34), new PVector(109, 33), new PVector(116
 PVector[][] allVectors = {vectors1, vectors2, vectors3, vectors4, vectors5};
 void setup(){
   size(1200, 240);
+  client = new MQTTClient(this);
+  client.connect("mqtt://electro-forest:fe8708c4cd16348a@broker.shiftr.io", "processing", true);
   if (mode == 1) airflowSetup();
   if (mode == 2) goldFishSetup();
   if (mode == 4) particleSetup();
@@ -183,4 +187,28 @@ boolean inBox(int x, int y, PVector[] vectors){
   p2.add(rightLine);
   p3.add(leftLine);
   return (y > p1.y && y < p4.y && x < p2.x && x > p3.x);
+}
+
+void clientConnected() {
+  println("client connected");
+
+  client.subscribe("/minorinteractive/studio/KEIZEN");
+}
+
+void messageReceived(String topic, byte[] payload) {
+  println("new message: " + topic + " - " + new String(payload));
+}
+
+void connectionLost() {
+  println("connection lost");
+}
+void sendMessage(int x){
+  client.publish("/minorinteractive/studio/KEIZEN", str(x));
+}
+void keyPressed() {
+  if (key == '0'){
+    sendMessage(0);
+  } else if (key == '1'){
+    sendMessage(1);
+  }
 }
