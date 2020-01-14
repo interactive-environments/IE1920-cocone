@@ -13,12 +13,12 @@ import java.util.Map;
 
 int minDepth =  755;
 int maxDepth = 875;
-int mode = 1;
-PVector[] vectors1 = {new PVector(71, 186), new PVector(78, 186), new PVector(95, 363), new PVector(102, 363)};
-PVector[] vectors2 = {new PVector(192, 38), new PVector(195, 47), new PVector(72, 178), new PVector(79, 176)};
-PVector[] vectors3 = {new PVector(197, 30), new PVector(382, 34), new PVector(197, 39), new PVector(384, 42)};
-PVector[] vectors4 = {new PVector(388, 49), new PVector(395, 51), new PVector(486, 190), new PVector(494, 189)};
-PVector[] vectors5 = {new PVector(485, 195), new PVector(495, 194), new PVector(497, 382), new PVector(505, 382)};
+int mode = 4;
+PVector[] vectors1 = {new PVector(526, 38), new PVector(535, 38), new PVector(552, 232), new PVector(562, 232)};
+PVector[] vectors2 = {new PVector(533, 241), new PVector(551, 241), new PVector(438, 370), new PVector(446, 373)};
+PVector[] vectors3 = {new PVector(236, 381), new PVector(429, 381), new PVector(241, 389), new PVector(427, 388)};
+PVector[] vectors4 = {new PVector(120, 236), new PVector(128, 229), new PVector(236, 382), new PVector(238, 377)};
+PVector[] vectors5 = {new PVector(97, 34), new PVector(109, 33), new PVector(116, 224), new PVector(125, 222)};
 PVector[][] allVectors = {vectors1, vectors2, vectors3, vectors4, vectors5};
 void setup(){
   size(1200, 240);
@@ -27,6 +27,7 @@ void setup(){
   if (mode == 1) airflowSetup();
   if (mode == 2) goldFishSetup();
   if (mode == 3) particleSetup();
+  if (mode == 4) ballSetup();
   ellipseMode(RADIUS);  // Set ellipseMode to RADIUS
   opc = new OPC(this, "127.0.0.1", 7890);
   kinect = new Kinect(this);
@@ -94,6 +95,7 @@ void draw(){
   } else if (mode == 3){
     particleDraw();
   } else if (mode == 4){
+    ballDraw();
   }
   //push();
   //fill(255);
