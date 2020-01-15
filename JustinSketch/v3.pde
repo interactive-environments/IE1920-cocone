@@ -11,16 +11,16 @@ class v3 {
       //x = 0;
       retV = 1;
     }
-    if (x > width-buffersize) {
-      //x = width;
+    if (x > ledWidth-buffersize) {
+      //x = ledWidth;
       retV = 2;
     }
     if (y < buffersize) {
       //y = 0;
       retV = 3;
     }
-    if (y > height-buffersize) {
-      //y = height;
+    if (y > ledHeight-buffersize) {
+      //y = ledHeight;
       retV = 4;
     }
     return retV;

@@ -16,16 +16,16 @@ static  float sizex;
       boolean untouched=true;
        
       public void airflowSetup() {
-        w=width;
-        h=height;
+        w=ledWidth;
+        h=ledHeight;
           textAlign(CENTER,CENTER);
-          invWidth = 1.0f/width;
-          invHeight = 1.0f/height;
-          aspectRatio = width * invHeight;
+          invWidth = 1.0f/ledWidth;
+          invHeight = 1.0f/ledHeight;
+          aspectRatio = ledWidth * invHeight;
           aspectRatio2 = aspectRatio * aspectRatio;
       
           // create fluid and set options
-          fluidSolver = new MSAFluidSolver2D((int)(FLUID_WIDTH), (int)(FLUID_WIDTH * height/width));
+          fluidSolver = new MSAFluidSolver2D((int)(FLUID_WIDTH), (int)(FLUID_WIDTH * ledHeight/ledWidth));
           fluidSolver.enableRGB(true).setFadeSpeed(0.003f).setDeltaT(0.5f).setVisc(0.0001f);
       
           // create image to hold fluid picture
@@ -58,7 +58,7 @@ static  float sizex;
                }           
  
          imgFluid.updatePixels();
-        image(imgFluid, 0, 0, width, height);         
+        image(imgFluid, 0, 0, ledWidth, ledHeight);         
        particleSystem.updateAndDraw();
   
    
@@ -93,7 +93,7 @@ static  float sizex;
               fluidSolver.gOld[index]  += green(drawColor) * colorMult;
               fluidSolver.bOld[index]  += blue(drawColor) * colorMult;
       
-              particleSystem.addParticles(x * width, y * height, 10);
+              particleSystem.addParticles(x * ledWidth, y * ledHeight, 10);
               fluidSolver.uOld[index] += dx * velocityMult;
               fluidSolver.vOld[index] += dy * velocityMult;
           }
@@ -127,8 +127,8 @@ static  float sizex;
       
               // read fluid info and add to velocity
               int fluidIndex = fluidSolver.getIndexForNormalizedPosition(x * invWidth, y * invHeight);
-              vx = fluidSolver.u[fluidIndex] * width * mass * FLUID_FORCE + vx * MOMENTUM;
-              vy = fluidSolver.v[fluidIndex] * height * mass * FLUID_FORCE + vy * MOMENTUM;
+              vx = fluidSolver.u[fluidIndex] * ledWidth * mass * FLUID_FORCE + vx * MOMENTUM;
+              vy = fluidSolver.v[fluidIndex] * ledHeight * mass * FLUID_FORCE + vy * MOMENTUM;
       
               // update position
               x += vx;
@@ -139,8 +139,8 @@ static  float sizex;
                   x = 0;
                   vx *= -1;
               }
-              else if(x > width) {
-                  x = width;
+              else if(x > ledWidth) {
+                  x = ledWidth;
                   vx *= -1;
               }
       
@@ -148,8 +148,8 @@ static  float sizex;
                   y = 0;
                   vy *= -1;
               }
-              else if(y > height) {
-                  y = height;
+              else if(y > ledHeight) {
+                  y = ledHeight;
                   vy *= -1;
               }
       
@@ -356,10 +356,10 @@ public class MSAFluidSolver2D {
     _invNX = 1.0f / _NX;
     _invNY = 1.0f / _NY;
         
-    width    = getWidth();
-    height    = getHeight();
-    invWidth  = 1.0f/width;
-    invHeight  = 1.0f/height;
+    ledWidth    = getWidth();
+    ledHeight    = getHeight();
+    invWidth  = 1.0f/ledWidth;
+    invHeight  = 1.0f/ledHeight;
         
     reset();
     enableRGB(false);
@@ -1073,8 +1073,8 @@ public class MSAFluidSolver2D {
     
       
       
-  protected float width;
-  protected float height;
+  protected float ledWidth;
+  protected float ledHeight;
   protected float invWidth;
   protected float invHeight;
       

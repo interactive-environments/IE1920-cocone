@@ -1,8 +1,8 @@
 class Pad{
   float radius = (random(10)+10);
   float circum = radius * 2;
-  float x = random(width);
-  float y = random(height);
+  float x = random(ledWidth);
+  float y = random(ledHeight);
   float angle = random(1*PI);
   float xDir = random(-0.1,0.1);
   float yDir = random(-0.1,0.1);
@@ -41,16 +41,16 @@ class Pad{
       x = radius;
       xDir *= -1;
     }
-    if (x > width-radius) {
-      x = width-radius;
+    if (x > ledWidth-radius) {
+      x = ledWidth-radius;
       xDir *= -1;
     }
     if (y < radius) {
       y = radius;
       yDir *= -1;
     }
-    if (y > height-radius) {
-      y = height-radius;
+    if (y > ledHeight-radius) {
+      y = ledHeight-radius;
       yDir *= -1;
     }
   }

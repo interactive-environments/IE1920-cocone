@@ -12,7 +12,7 @@ class Foof{
   void move(){
     x+= velX;
     y+= velY;
-    if (x<0||x>width||y<0||y>height){
+    if (x<0||x>ledWidth||y<0||y>ledHeight){
       eaten = true;
     }
   }

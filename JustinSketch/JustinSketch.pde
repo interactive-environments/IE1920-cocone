@@ -13,16 +13,21 @@ import java.util.Map;
 
 int minDepth =  775;
 int maxDepth = 895;
-int mode = 2;
+int mode = 4;
 PVector[] vectors1 = {new PVector(82, 186), new PVector(86, 188), new PVector(108, 359), new PVector(113, 359)};
 PVector[] vectors2 = {new PVector(81, 177), new PVector(196, 47), new PVector(93, 183), new PVector(200, 59)};
 PVector[] vectors3 = {new PVector(199, 47), new PVector(381, 48), new PVector(200, 56), new PVector(379, 56)};
 PVector[] vectors4 = {new PVector(386, 56), new PVector(484, 191), new PVector(381, 67), new PVector(477, 196)};
 PVector[] vectors5 = {new PVector(477, 201), new PVector(486, 200), new PVector(488, 377), new PVector(496, 377)};
 
+int ledWidth = 1200;
+int ledHeight = 240;
+int ledX = 1920/2-ledWidth/2;
+int ledY = 1080/2-ledHeight/2;
+
 PVector[][] allVectors = {vectors1, vectors2, vectors3, vectors4, vectors5};
 void setup(){
-  size(1200, 240);
+  size(1920, 1080);
   client = new MQTTClient(this);
   client.connect("mqtt://electro-forest:fe8708c4cd16348a@broker.shiftr.io", "processing", true);
   if (mode == 1) airflowSetup();
@@ -37,8 +42,8 @@ void setup(){
   
   for (int j = 0; j < 5; j++){
     for(int i = 0; i < 5; i++){
-      opc.ledStrip(i*64 + j*512, 16, width/6 + j*width/6, height/24 + height/12 + i*height/6, width/100, 0, true);
-      opc.ledStrip(16+i*64 + j*512, 15, width/6 + j*width/6, height/24 + height/6 + i*height/6, width/100, 0, false);
+      opc.ledStrip(i*64 + j*512, 16, ledX +ledWidth/6 + j*ledWidth/6, ledY + ledHeight/24 + ledHeight/12 + i*ledHeight/6, ledWidth/100, 0, true);
+      opc.ledStrip(16+i*64 + j*512, 15, ledX + ledWidth/6 + j*ledWidth/6, ledY + ledHeight/24 + ledHeight/6 + i*ledHeight/6, ledWidth/100, 0, false);
     }
   }
   
@@ -46,6 +51,16 @@ void setup(){
 
 void draw(){
   background(0);
+  
+  
+  
+  
+  
+  /*
+  LED DRAWING
+  */
+  push();
+  translate(ledX,ledY);
   int[] rawDepth = kinect.getRawDepth();
   touchPoints0.clear();
   touchPoints1.clear();
@@ -115,7 +130,10 @@ void draw(){
     if (touchPoints4.size() > 0) ellipse(touchPoints4.get(0).x, touchPoints4.get(0).y, 25, 25);
     pop();
   }
+  pop();
 }
+
+
 PVector previous0 = new PVector(0, 0);
 PVector previous1 = new PVector(0, 0);
 PVector previous2 = new PVector(0, 0);
@@ -127,6 +145,9 @@ ArrayList<PVector> touchPoints2 = new ArrayList<PVector>();
 ArrayList<PVector> touchPoints3 = new ArrayList<PVector>();
 ArrayList<PVector> touchPoints4 = new ArrayList<PVector>();
 void touch(int x, int y, int depth){
+  //x = x + ledX;
+  //y = y + ledY;
+  
   //touchPoints.clear();
   for (int i = 0; i < 5; i++){
     if (inBox( x, y, allVectors[i])){
@@ -156,8 +177,8 @@ void touch(int x, int y, int depth){
       }
       float totalDist = dist0 + dist1;
       float xPercentage = dist0/totalDist;
-      int finalX = width-int(xPercentage*width/6 + (4-i) * width/6)-width/12;
-      int finalY = (depth-minDepth)*height/(maxDepth-minDepth);
+      int finalX = ledWidth-int(xPercentage*ledWidth/6 + (4-i) * ledWidth/6)-ledWidth/12;
+      int finalY = (depth-minDepth)*ledHeight/(maxDepth-minDepth);
       switch(i){
         case 0:
         touchPoints0.add(new PVector(finalX, finalY));

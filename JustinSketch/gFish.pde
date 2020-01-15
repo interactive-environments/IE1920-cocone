@@ -1,6 +1,6 @@
 class gFish {
   
-  v3 pos = new v3(random(width),random(height));
+  v3 pos = new v3(random(ledWidth),random(ledHeight));
   float maxSpeed;
   float minSpeed;
   float speed;
@@ -183,15 +183,15 @@ class gFish {
         break;
     }  
     if (pos.x < body.length*-segLen){
-      pos.x = width+(body.length*segLen);
+      pos.x = ledWidth+(body.length*segLen);
     }
-    if (pos.x > width+(body.length*segLen)){
+    if (pos.x > ledWidth+(body.length*segLen)){
       pos.x = -body.length*segLen;
     }
     if (pos.y < -body.length*segLen){
-      pos.y = height + (body.length*segLen);
+      pos.y = ledHeight + (body.length*segLen);
     }
-    if (pos.y > height+ (body.length*segLen)){
+    if (pos.y > ledHeight+ (body.length*segLen)){
       pos.y = -body.length*segLen;
     }
   }
@@ -206,7 +206,7 @@ class gFish {
     }
     Knobs(float _sz, float x, float y, float dp){
       sz = _sz;
-      pos = new v3(random(width),random(height));
+      pos = new v3(random(ledWidth),random(ledHeight));
       float myR = scaleAvg(bgR,225,dp);
       float myG = scaleAvg(bgG,random(100)+25,dp);
       float myB = scaleAvg(bgB,25,dp);

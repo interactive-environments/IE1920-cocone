@@ -1,4 +1,4 @@
-Ball balls[] = {new Ball(25), new Ball(25), new Ball(25), new Ball(25), new Ball(25), new Ball(25), new Ball(25), new Ball(25), new Ball(25), new Ball(25), new Ball(25), new Ball(25)};
+Ball balls[] = {new Ball(25), new Ball(25), new Ball(25), new Ball(25), new Ball(25), new Ball(25), new Ball(25)};
 void ballSetup(){
   ellipseMode(RADIUS);
   
@@ -32,20 +32,23 @@ class Ball{
   PVector location;
   float radius;
   color colour;
+  float rand;
   Ball(float radius){
-    this.colour = color(255.2, 1, 1);
+    this.colour = color(random(255), random(255), random(255));
     this.location = new PVector(random(900)+150, random(180)+30);
     this.radius = radius;
+    this.rand = random(20);
   }
   
   void touched(){
     this.location = new PVector(random(900)+150, random(180)+30);
     this.colour = getColor();
+    this.rand = random(20);
   }
   
   void drawBall(){
     fill(this.colour);
-    ellipse(location.x, location.y, radius, radius);
+    ellipse(location.x, location.y, radius+rand, radius+rand);
   }
   color getColor(){
     colorMode(HSB, 100);

@@ -19,8 +19,8 @@ void particleSetup() {
   //float a = 0.0;
   //float av = 0.3;
  
-  //while(r < min(width,height)/2.0) {
-  //  points.add(new PVector(width/2 + r*cos(a), height/2 + r*sin(a), 0));
+  //while(r < min(ledWidth,ledHeight)/2.0) {
+  //  points.add(new PVector(ledWidth/2 + r*cos(a), ledHeight/2 + r*sin(a), 0));
   //  a += av;
   //  r *= rv;
   //}
@@ -33,7 +33,7 @@ void particleDraw() {
   background(0);
   noStroke();
   fill(0, 30);
-  rect(0, 0, width, height);
+  rect(0, 0, ledWidth, ledHeight);
   ArrayList points = new ArrayList();
   allParticles.add(new Particle(mouseX, mouseY, maxLevel));
   if (touchPoints0.size() > 0) allParticles.add(new Particle(touchPoints0.get(0).x, touchPoints0.get(0).y, maxLevel));
