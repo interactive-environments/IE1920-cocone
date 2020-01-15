@@ -45,12 +45,13 @@ static  float sizex;
           float mouseVelY = (current.y - previous.y) * invHeight;
       
           addForce(mouseNormX, mouseNormY, mouseVelX, mouseVelY);
-          }
+       }
  
               
       public void airflowDraw() {        
-        if(untouched){         background(0);}
+        if(untouched){}
        else{
+         colorMode(RGB, 1);
          fluidSolver.update();
               for(int i=0; i<fluidSolver.getNumCells(); i++) {
                   int d = 2;
@@ -58,7 +59,7 @@ static  float sizex;
                }           
  
          imgFluid.updatePixels();
-        image(imgFluid, 0, 0, ledWidth, ledHeight);         
+        image(imgFluid, 10, 10, ledWidth-20, ledHeight-20);         
        particleSystem.updateAndDraw();
   
    
@@ -77,17 +78,17 @@ static  float sizex;
               if(y<0) y = 0;
               else if(y>1) y = 1;
       
-              float colorMult = 5;
+              float colorMult = 2;
               float velocityMult = 30.0f;
       
               int index = fluidSolver.getIndexForNormalizedPosition(x, y);
       
               int drawColor;
       
-              colorMode(HSB, 360, 1, 1);
-              float hue = ((x + y) * 180 + frameCount) % 360;
+              colorMode(HSB, 360, 1, 3);
+              float hue = ((x + y) * 360 + frameCount) % 360;
               drawColor = color(hue, 1, 1);
-              colorMode(RGB, 255);
+              colorMode(RGB, 1);
       
               fluidSolver.rOld[index]  += red(drawColor) * colorMult;
               fluidSolver.gOld[index]  += green(drawColor) * colorMult;
@@ -306,7 +307,7 @@ public class MSAFluidSolver2D {
   final static float    FLUID_DEFAULT_NY                    = 100;
   final static float    FLUID_DEFAULT_DT                    = 1.0f;
   final static float    FLUID_DEFAULT_VISC                  = 0.0001f;
-  final static float    FLUID_DEFAULT_FADESPEED             = 0;
+  final static float    FLUID_DEFAULT_FADESPEED             = 2;
   final static int      FLUID_DEFAULT_SOLVER_ITERATIONS    = 10;
     
       
