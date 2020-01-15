@@ -1,6 +1,7 @@
 #include <WiFiNINA.h>
 #include <MQTT.h>
-#define PIN     5
+#define PIN1     5
+#define PIN2     6
 //wifi settings
 const char ssid[] = "Science-Centre-EVENT";
 const char pass[] = "ScienceCentre";
@@ -14,7 +15,8 @@ MQTTClient client;
 unsigned long lastMillis = 0;
 
 
-int toSend = 0;
+int toSend1 = 1;
+int toSend2 = 1;
 
 void connect() {
   Serial.print("checking wifi...");
@@ -36,11 +38,8 @@ void connect() {
 
 void messageReceived(String &topic, String &payload) {
 //  Serial.println("incoming: " + topic + " - " + payload);
-  if ((payload).toInt() == 1){
-    toSend = 1;
-  } else {
-    toSend = 0;
-  }
+  toSend1 = (payload).toInt()%2;
+  toSend2 = (payload).toInt()-toSend1;
 }
 
 
@@ -48,7 +47,8 @@ void setup() {
   Serial.begin(9600);
   Serial.println("WiFi.begin");
   WiFi.begin(ssid, pass);
-  pinMode(PIN, OUTPUT);
+  pinMode(PIN1, OUTPUT);
+  pinMode(PIN2, OUTPUT);
   // Note: Local domain names (e.g. "Computer.local" on OSX) are not supported by Arduino.
   // You need to set the IP address directly.
   //
@@ -69,11 +69,12 @@ void loop() {
   }
   
   // publish a message roughly every second.
-  if (millis() - lastMillis > 1
-   000) {
+  if (millis() - lastMillis > 1000) {
     lastMillis = millis();
-    Serial.println(toSend);
-    digitalWrite(PIN, toSend);
+    Serial.print(toSend1);
+    Serial.println(toSend2);
+    digitalWrite(PIN1, toSend1);
+    digitalWrite(PIN2, toSend2);
 //    if (toSend == 1) toSend = 0; else toSend = 1;
 //    if (toSend == 1){
 //    client.publish("/minorinteractive/studio/KEIZEN", "0");
