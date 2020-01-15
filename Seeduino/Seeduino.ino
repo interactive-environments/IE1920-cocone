@@ -55,10 +55,10 @@ void loop()
           SetupDrawPalette();
         break;
         case 2:
-          SetupDrawPalette();
+          SetupDrawPalette1();
         break;
         case 3:
-          SetupDrawPalette();
+          SetupDrawPalette2();
         break;
       }
     }
@@ -70,25 +70,25 @@ void loop()
     FastLED.show();
     FastLED.delay(1000 / UPDATES_PER_SECOND);
 }
-
+int speedMult = 1;
 void FillLEDsFromPaletteColors( uint8_t colorIndex)
 {
     uint8_t brightness = 255;
    
-    colorIndex += 1*NUM_LEDS_1;
+    colorIndex += speedMult*NUM_LEDS_1;
     for( int i = 0; i < NUM_LEDS_1; i++) {
         leds1[i] = ColorFromPalette( currentPalette, colorIndex, brightness, currentBlending);
-        colorIndex -= 1;
+        colorIndex -= speedMult;
     }
-    colorIndex += 1*NUM_LEDS_2;
+    colorIndex += speedMult*NUM_LEDS_2;
     for( int i = 0; i < NUM_LEDS_2; i++) {
         leds2[i] = ColorFromPalette( currentPalette, colorIndex, brightness, currentBlending);
-        colorIndex -= 1;
+        colorIndex -= speedMult;
     }
-    colorIndex -= 1*NUM_LEDS_3;
+    colorIndex -= speedMult*NUM_LEDS_3;
     for( int i = 0; i < NUM_LEDS_3; i++) {
         leds3[i] = ColorFromPalette( currentPalette, colorIndex, brightness, currentBlending);
-        colorIndex -= 1;
+        colorIndex -= speedMult;
     }
 }
 
@@ -105,6 +105,37 @@ void SetupDrawPalette()
     currentPalette[9] = CRGB::Orange;
     currentPalette[12] = CRGB::Red;
     currentPalette[13] = CRGB::Orange;
+    speedMult = 1;
+}
+void SetupDrawPalette1()
+{
+    // 'black out' all 16 palette entries...
+    fill_solid( currentPalette, 16, CRGB::Black);
+    // and set every our colors
+    currentPalette[0] = CRGB::Red;
+    currentPalette[1] = CRGB::Orange;
+    currentPalette[2] = CRGB::Yellow;
+    currentPalette[3] = CRGB::Green;
+    currentPalette[8] = CRGB::Red;
+    currentPalette[9] = CRGB::Orange;
+    currentPalette[10] = CRGB::Yellow;
+    currentPalette[11] = CRGB::Green;
+    speedMult = 1;
+}
+void SetupDrawPalette2()
+{
+    // 'black out' all 16 palette entries...
+    fill_solid( currentPalette, 16, CRGB::Black);
+    // and set every our colors
+    currentPalette[0] = CRGB::Red;
+    currentPalette[1] = CRGB::Orange;
+    currentPalette[4] = CRGB::Red;
+    currentPalette[5] = CRGB::Orange;
+    currentPalette[8] = CRGB::Red;
+    currentPalette[9] = CRGB::Orange;
+    currentPalette[12] = CRGB::Red;
+    currentPalette[13] = CRGB::Orange;
+    speedMult = 3;
     
 }
 
