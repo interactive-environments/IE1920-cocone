@@ -50,10 +50,8 @@ void setup(){
 }
 
 void draw(){
-  background(255);
-  fill(0);
-  stroke(255);
-  rect(ledX, ledY, ledWidth, ledHeight, 40);
+  background(0);
+  
   
   
   
