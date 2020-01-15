@@ -20,6 +20,9 @@ PVector[] vectors3 = {new PVector(199, 47), new PVector(381, 48), new PVector(20
 PVector[] vectors4 = {new PVector(386, 56), new PVector(484, 191), new PVector(381, 67), new PVector(477, 196)};
 PVector[] vectors5 = {new PVector(477, 201), new PVector(486, 200), new PVector(488, 377), new PVector(496, 377)};
 
+
+PVector[] boxVectors = {new PVector(164, 86), new PVector(424, 112), new PVector(85, 470), new PVector(439, 470)};
+
 int ledWidth = 1200;
 int ledHeight = 240;
 int ledX = 1920/2-ledWidth/2;
@@ -60,7 +63,8 @@ void setup(){
   }
   
 }
-
+int toSend = 1;
+int lastFrame = frameCount;
 void draw(){
   background(255);
   fill(0);
@@ -83,6 +87,7 @@ void draw(){
   touchPoints2.clear();
   touchPoints3.clear();
   touchPoints4.clear();
+  boolean isInBox = false;
   for (int i=0; i < rawDepth.length; i++) {
       int x = i % kinect.width;
       int y = i / kinect.width;
@@ -90,7 +95,19 @@ void draw(){
       if (inBox(x, y, vectors1) || inBox(x, y, vectors2) || inBox(x, y, vectors3) || inBox(x, y, vectors4) || inBox(x, y, vectors5)){
         touch(x, y, rawDepth[i]);
       }
+      if (inBox(x, y, boxVectors)){
+        isInBox = true;
+      }
     }
+  }
+  if (isInBox){
+    toSend = 0;
+  } else {
+    toSend = 1;
+  }
+  if (frameCount-lastFrame > 75){
+    lastFrame = frameCount;
+    sendMessage(toSend);
   }
   if (mode == 1){
     push();
