@@ -11,14 +11,15 @@ import org.processing.wiki.triangulate.*;
 import java.util.Map;
 
 
-int minDepth =  755;
-int maxDepth = 875;
-int mode = 4;
-PVector[] vectors1 = {new PVector(71, 186), new PVector(78, 186), new PVector(95, 363), new PVector(102, 363)};
-PVector[] vectors2 = {new PVector(192, 38), new PVector(195, 47), new PVector(72, 178), new PVector(79, 176)};
-PVector[] vectors3 = {new PVector(197, 30), new PVector(382, 34), new PVector(197, 39), new PVector(384, 42)};
-PVector[] vectors4 = {new PVector(388, 49), new PVector(395, 51), new PVector(486, 190), new PVector(494, 189)};
-PVector[] vectors5 = {new PVector(485, 195), new PVector(495, 194), new PVector(497, 382), new PVector(505, 382)};
+int minDepth =  775;
+int maxDepth = 895;
+int mode = 2;
+PVector[] vectors1 = {new PVector(82, 186), new PVector(86, 188), new PVector(108, 359), new PVector(113, 359)};
+PVector[] vectors2 = {new PVector(81, 177), new PVector(196, 47), new PVector(93, 183), new PVector(200, 59)};
+PVector[] vectors3 = {new PVector(199, 47), new PVector(381, 48), new PVector(200, 56), new PVector(379, 56)};
+PVector[] vectors4 = {new PVector(386, 56), new PVector(484, 191), new PVector(381, 67), new PVector(477, 196)};
+PVector[] vectors5 = {new PVector(477, 201), new PVector(486, 200), new PVector(488, 377), new PVector(496, 377)};
+
 PVector[][] allVectors = {vectors1, vectors2, vectors3, vectors4, vectors5};
 void setup(){
   size(1200, 240);
@@ -61,6 +62,7 @@ void draw(){
     }
   }
   if (mode == 1){
+    push();
     if (touchPoints0.size() > 0) {
       airflowMouseDragged(touchPoints0.get(0), previous0);
       previous0 = touchPoints0.get(0);
@@ -84,27 +86,35 @@ void draw(){
     //airflowMouseDragged(new PVector(mouseX, mouseY), previous0);
     //previous0 = new PVector(mouseX, mouseY);
     airflowDraw();
+    pop();
   } else if (mode == 2){
+    push();
     if (touchPoints0.size() > 0) handDragged(touchPoints0.get(0).x, touchPoints0.get(0).y);
     if (touchPoints1.size() > 0) handDragged(touchPoints1.get(0).x, touchPoints1.get(0).y);
     if (touchPoints2.size() > 0) handDragged(touchPoints2.get(0).x, touchPoints2.get(0).y);
     if (touchPoints3.size() > 0) handDragged(touchPoints3.get(0).x, touchPoints3.get(0).y);
-    if (touchPoints4.size() > 0) handDragged(touchPoints4.get(0).x, touchPoints3.get(0).y);
-    
+    if (touchPoints4.size() > 0) handDragged(touchPoints4.get(0).x, touchPoints4.get(0).y);
     goldFishDraw();
+    pop();
   } else if (mode == 3){
+    push();
     particleDraw();
+    pop();
   } else if (mode == 4){
+    push();
     ballDraw();
+    pop();
+    push();
+    fill(color(255,255,255));
+    stroke(color(255,255,255));
+    ellipseMode(RADIUS);
+    if (touchPoints0.size() > 0) ellipse(touchPoints0.get(0).x, touchPoints0.get(0).y, 25, 25);
+    if (touchPoints1.size() > 0) ellipse(touchPoints1.get(0).x, touchPoints1.get(0).y, 25, 25);
+    if (touchPoints2.size() > 0) ellipse(touchPoints2.get(0).x, touchPoints2.get(0).y, 25, 25);
+    if (touchPoints3.size() > 0) ellipse(touchPoints3.get(0).x, touchPoints3.get(0).y, 25, 25);
+    if (touchPoints4.size() > 0) ellipse(touchPoints4.get(0).x, touchPoints4.get(0).y, 25, 25);
+    pop();
   }
-  //push();
-  //fill(255);
-  //stroke(255);
-  //if (touchPoints0.size() > 0) ellipse(touchPoints0.get(0).x, touchPoints0.get(0).y, 9, 9);
-  //if (touchPoints1.size() > 0) ellipse(touchPoints1.get(0).x, touchPoints1.get(0).y, 9, 9);
-  //if (touchPoints2.size() > 0) ellipse(touchPoints2.get(0).x, touchPoints2.get(0).y, 9, 9);
-  //if (touchPoints3.size() > 0) ellipse(touchPoints3.get(0).x, touchPoints3.get(0).y, 9, 9);
-  //pop();
 }
 PVector previous0 = new PVector(0, 0);
 PVector previous1 = new PVector(0, 0);
@@ -124,24 +134,24 @@ void touch(int x, int y, int depth){
       float dist1 = 0;
       switch(i){
         case 0:
-          dist0 = allVectors[i][2].dist(new PVector(x, y));
-          dist1 = allVectors[i][0].dist(new PVector(x, y));
+          dist0 = allVectors[i][0].dist(new PVector(x, y));
+          dist1 = allVectors[i][2].dist(new PVector(x, y));
         break;
         case 1:
           dist0 = allVectors[i][1].dist(new PVector(x, y));
           dist1 = allVectors[i][0].dist(new PVector(x, y));
         break;
         case 2:
-          dist0 = allVectors[i][0].dist(new PVector(x, y));
-          dist1 = allVectors[i][2].dist(new PVector(x, y));
+          dist0 = allVectors[i][1].dist(new PVector(x, y));
+          dist1 = allVectors[i][0].dist(new PVector(x, y));
         break;
         case 3:
-          dist0 = allVectors[i][0].dist(new PVector(x, y));
-          dist1 = allVectors[i][2].dist(new PVector(x, y));
+          dist0 = allVectors[i][1].dist(new PVector(x, y));
+          dist1 = allVectors[i][0].dist(new PVector(x, y));
         break;
         case 4:
-          dist0 = allVectors[i][0].dist(new PVector(x, y));
-          dist1 = allVectors[i][2].dist(new PVector(x, y));
+          dist0 = allVectors[i][2].dist(new PVector(x, y));
+          dist1 = allVectors[i][0].dist(new PVector(x, y));
         break;
       }
       float totalDist = dist0 + dist1;

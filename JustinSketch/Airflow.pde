@@ -87,7 +87,7 @@ static  float sizex;
               colorMode(HSB, 360, 1, 1);
               float hue = ((x + y) * 180 + frameCount) % 360;
               drawColor = color(hue, 1, 1);
-              colorMode(RGB, 1);
+              colorMode(RGB, 255);
       
               fluidSolver.rOld[index]  += red(drawColor) * colorMult;
               fluidSolver.gOld[index]  += green(drawColor) * colorMult;

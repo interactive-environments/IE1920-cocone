@@ -1,4 +1,4 @@
-Ball balls[] = {new Ball(25), new Ball(25), new Ball(25)};
+Ball balls[] = {new Ball(25), new Ball(25), new Ball(25), new Ball(25), new Ball(25), new Ball(25), new Ball(25), new Ball(25), new Ball(25), new Ball(25), new Ball(25), new Ball(25)};
 void ballSetup(){
   ellipseMode(RADIUS);
   
@@ -7,19 +7,19 @@ void ballSetup(){
 
 void ballDraw(){
   for (int i = 0; i < balls.length; i++){
-    if (touchPoints0.size() > 0 && touchPoints0.get(0).dist(balls[i].location) < balls[i].radius+1){
+    if (touchPoints0.size() > 0 && touchPoints0.get(0).dist(balls[i].location) < balls[i].radius*2){
        balls[i].touched();
     }
-    if (touchPoints1.size() > 0 && touchPoints1.get(0).dist(balls[i].location) < balls[i].radius+1){
+    if (touchPoints1.size() > 0 && touchPoints1.get(0).dist(balls[i].location) < balls[i].radius*2){
        balls[i].touched();
     }
-    if (touchPoints2.size() > 0 && touchPoints2.get(0).dist(balls[i].location) < balls[i].radius+1){
+    if (touchPoints2.size() > 0 && touchPoints2.get(0).dist(balls[i].location) < balls[i].radius*2){
        balls[i].touched();
     }
-    if (touchPoints3.size() > 0 && touchPoints3.get(0).dist(balls[i].location) < balls[i].radius+1){
+    if (touchPoints3.size() > 0 && touchPoints3.get(0).dist(balls[i].location) < balls[i].radius*2){
        balls[i].touched();
     }
-    if (touchPoints4.size() > 0 && touchPoints4.get(0).dist(balls[i].location) < balls[i].radius+1){
+    if (touchPoints4.size() > 0 && touchPoints4.get(0).dist(balls[i].location) < balls[i].radius*2){
        balls[i].touched();
     }
     if (new PVector(mouseX, mouseY).dist(balls[i].location) < balls[i].radius+1){
@@ -49,7 +49,7 @@ class Ball{
   }
   color getColor(){
     colorMode(HSB, 100);
-    float hue = frameCount % 100;
+    float hue = random(100);
     return color(hue, 255, 255);
   }
 }

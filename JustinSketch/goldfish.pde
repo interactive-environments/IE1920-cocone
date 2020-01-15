@@ -16,6 +16,7 @@ void goldFishSetup() {
   for (int i = 0; i < pd.length; i++){
     pd[i] = new Pad();
   }
+  colorMode(RGB);
 }
 
 void goldFishDraw() {
