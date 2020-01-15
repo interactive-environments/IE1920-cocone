@@ -4,7 +4,8 @@
 #define LED_PIN_2     5
 #define LED_PIN_3     7
 
-#define READ_PIN      2
+#define READ_PIN_1      2
+#define READ_PIN_2      3
 
 #define NUM_LEDS_1    140
 #define NUM_LEDS_2    132
@@ -28,7 +29,8 @@ extern const TProgmemPalette16 myRedWhiteBluePalette_p PROGMEM;
 
 void setup() {
     delay( 3000 ); // power-up safety delay
-    pinMode(READ_PIN, INPUT);
+    pinMode(READ_PIN_1, INPUT);
+    pinMode(READ_PIN_2, INPUT);
     FastLED.addLeds<LED_TYPE, LED_PIN_1, COLOR_ORDER>(leds1, NUM_LEDS_1).setCorrection( TypicalLEDStrip );
     FastLED.addLeds<LED_TYPE, LED_PIN_2, COLOR_ORDER>(leds2, NUM_LEDS_2).setCorrection( TypicalLEDStrip );
     FastLED.addLeds<LED_TYPE, LED_PIN_3, COLOR_ORDER>(leds3, NUM_LEDS_3).setCorrection( TypicalLEDStrip );
@@ -41,14 +43,23 @@ void setup() {
 int lastPin = 0;
 void loop()
 {
-    int curPin = digitalRead(READ_PIN);
+    int curPin = digitalRead(READ_PIN_1) + 2 * digitalRead(READ_PIN_2);
     Serial.println(curPin);
     if (curPin != lastPin){
       lastPin = curPin;
-      if (curPin == 1){
+      switch(curPin){
+        case 0:
           SetupBlackPalette();
-      } else {
+        break;
+        case 1:
           SetupDrawPalette();
+        break;
+        case 2:
+          SetupDrawPalette();
+        break;
+        case 3:
+          SetupDrawPalette();
+        break;
       }
     }
     static uint8_t startIndex = 0;
