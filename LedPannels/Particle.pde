@@ -7,7 +7,7 @@ ArrayList<Particle> allParticles = new ArrayList<Particle>();
 
 void particleSetup() {
   textAlign(CENTER);
-  background(0);
+  //background(0);
   
   colorMode(RGB);
   //smooth();
@@ -30,12 +30,13 @@ void particleSetup() {
 }
  
 void particleDraw() {
-  background(0);
   noStroke();
   fill(0, 30);
   rect(0, 0, ledWidth, ledHeight);
   ArrayList points = new ArrayList();
-  allParticles.add(new Particle(mouseX, mouseY, maxLevel));
+  if (mouseX < ledWidth & mouseY < ledHeight){
+    allParticles.add(new Particle(mouseX, mouseY, maxLevel));
+  }
   if (touchPoints0.size() > 0) allParticles.add(new Particle(touchPoints0.get(0).x, touchPoints0.get(0).y, maxLevel));
   if (touchPoints1.size() > 0) allParticles.add(new Particle(touchPoints1.get(0).x, touchPoints1.get(0).y, maxLevel));
   if (touchPoints2.size() > 0) allParticles.add(new Particle(touchPoints2.get(0).x, touchPoints2.get(0).y, maxLevel));

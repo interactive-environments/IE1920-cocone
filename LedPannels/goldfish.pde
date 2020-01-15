@@ -21,7 +21,6 @@ void goldFishSetup() {
 
 void goldFishDraw() {
   frame++;
-  background(0);
   food = cleanFoof(food);
   for (int j = 0; j < food.length; j++){
     food[j].move();

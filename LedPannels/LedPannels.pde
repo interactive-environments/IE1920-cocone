@@ -13,7 +13,7 @@ import java.util.Map;
 
 int minDepth =  775;
 int maxDepth = 895;
-int mode = 4;
+int mode = 1;
 PVector[] vectors1 = {new PVector(82, 186), new PVector(86, 188), new PVector(108, 359), new PVector(113, 359)};
 PVector[] vectors2 = {new PVector(81, 177), new PVector(196, 47), new PVector(93, 183), new PVector(200, 59)};
 PVector[] vectors3 = {new PVector(199, 47), new PVector(381, 48), new PVector(200, 56), new PVector(379, 56)};
@@ -23,11 +23,23 @@ PVector[] vectors5 = {new PVector(477, 201), new PVector(486, 200), new PVector(
 int ledWidth = 1200;
 int ledHeight = 240;
 int ledX = 1920/2-ledWidth/2;
-int ledY = 1080/2-ledHeight/2;
+int ledY = 1080/2-ledHeight/4;
+
+PImage logo;
+PFont kaiZenFont;
+
+Button[] buttons = {
+  new Button(100,800,320,64,7,color(0,0,0),color(255,255,255),"Fluid Brush",1),
+  new Button(530,800,320,64,7,color(0,0,0),color(255,255,255),"Koi Karper",2),
+  new Button(960,800,320,64,7,color(0,0,0),color(255,255,255),"Ice Brush",3),
+  new Button(1390,800,320,64,7,color(0,0,0),color(255,255,255),"Ball Catch",4)
+};
 
 PVector[][] allVectors = {vectors1, vectors2, vectors3, vectors4, vectors5};
 void setup(){
   size(1920, 1080);
+  logo = loadImage("Logo.png");
+  kaiZenFont = createFont("DistTh_.ttf",32);
   client = new MQTTClient(this);
   client.connect("mqtt://electro-forest:fe8708c4cd16348a@broker.shiftr.io", "processing", true);
   if (mode == 1) airflowSetup();
@@ -50,11 +62,15 @@ void setup(){
 }
 
 void draw(){
-  background(0);
+  background(255);
+  fill(0);
+  stroke(0);
+  rect(ledX,ledY,ledWidth,ledHeight,40);
+  image(logo,width/2-160,10);
   
-  
-  
-  
+  for (Button b : buttons) {
+     b.draw(); 
+  }
   
   /*
   LED DRAWING
@@ -98,12 +114,11 @@ void draw(){
       airflowMouseDragged(touchPoints4.get(0), previous4);
       previous4 = touchPoints4.get(0);
     }
-    //airflowMouseDragged(new PVector(mouseX, mouseY), previous0);
-    //previous0 = new PVector(mouseX, mouseY);
     airflowDraw();
     pop();
   } else if (mode == 2){
-    push();
+    push(
+);
     if (touchPoints0.size() > 0) handDragged(touchPoints0.get(0).x, touchPoints0.get(0).y);
     if (touchPoints1.size() > 0) handDragged(touchPoints1.get(0).x, touchPoints1.get(0).y);
     if (touchPoints2.size() > 0) handDragged(touchPoints2.get(0).x, touchPoints2.get(0).y);
@@ -259,4 +274,25 @@ void switchSketch(boolean left){
   if (mode == 1) airflowSetup();
   if (mode == 2) goldFishSetup();
   if (mode == 3) particleSetup();
+}
+
+void selectSketch(int sketch) {
+  switch(sketch){
+    case 1:
+      mode = 1;
+      airflowSetup();
+      break;
+    case 2:
+      mode = 2;
+      goldFishSetup();
+      break;
+    case 3:
+      mode = 3;
+      particleSetup();
+      break;
+    case 4:
+      mode = 4;
+      ballSetup();
+      break;
+  }
 }
