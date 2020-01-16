@@ -10,10 +10,11 @@ PImage depthImg;
 import org.processing.wiki.triangulate.*;
 import java.util.Map;
 
+int START_STATE = 4;
 
 int minDepth =  775;
 int maxDepth = 895;
-int mode = 1;
+int mode = START_STATE;
 PVector[] vectors1 = {new PVector(82, 186), new PVector(86, 188), new PVector(108, 359), new PVector(113, 359)};
 PVector[] vectors2 = {new PVector(81, 177), new PVector(196, 47), new PVector(93, 183), new PVector(200, 59)};
 PVector[] vectors3 = {new PVector(199, 47), new PVector(381, 48), new PVector(200, 56), new PVector(379, 56)};
@@ -43,13 +44,13 @@ void setup(){
   size(1920, 1080);
   logo = loadImage("Logo.png");
   kaiZenFont = createFont("DistTh_.ttf",32);
+  
   client = new MQTTClient(this);
   client.connect("mqtt://electro-forest:fe8708c4cd16348a@broker.shiftr.io", "processing", true);
-  if (mode == 1) airflowSetup();
-  if (mode == 2) goldFishSetup();
-  if (mode == 3) particleSetup();
-  if (mode == 4) ballSetup();
-  ellipseMode(RADIUS);  // Set ellipseMode to RADIUS
+  
+  selectSketch(START_STATE);
+  buttons[START_STATE - 1].active = true;
+  
   opc = new OPC(this, "127.0.0.1", 7890);
   kinect = new Kinect(this);
   kinect.initDepth();

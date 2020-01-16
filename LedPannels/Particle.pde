@@ -2,7 +2,7 @@ import org.processing.wiki.triangulate.*;
 import java.util.Map;
 
 ArrayList triangles = new ArrayList();
-int maxLevel = 5;
+int maxLevel = 7;
 ArrayList<Particle> allParticles = new ArrayList<Particle>();
 
 void particleSetup() {

@@ -307,7 +307,7 @@ public class MSAFluidSolver2D {
   final static float    FLUID_DEFAULT_NY                    = 100;
   final static float    FLUID_DEFAULT_DT                    = 1.0f;
   final static float    FLUID_DEFAULT_VISC                  = 0.0001f;
-  final static float    FLUID_DEFAULT_FADESPEED             = 2;
+  final static float    FLUID_DEFAULT_FADESPEED             = 0.9f;
   final static int      FLUID_DEFAULT_SOLVER_ITERATIONS    = 10;
     
       
