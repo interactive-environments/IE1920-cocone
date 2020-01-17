@@ -85,7 +85,7 @@ static  float sizex;
       
               int drawColor;
       
-              colorMode(HSB, 360, 1, 3);
+              colorMode(HSB, 360, 1, 1);
               float hue = ((x + y) * 180 + frameCount) % 180 * 2;
               drawColor = color(hue, 1, 1);
               colorMode(RGB, 1);
@@ -161,7 +161,7 @@ static  float sizex;
               }
       
               // fade out a bit (and kill if alpha == 0);
-              alpha *= 0.040f;
+              alpha *= 0.099f;
               if(alpha < 0.01f) alpha = 0;
       
           }
@@ -170,7 +170,7 @@ static  float sizex;
       
           public void drawOldSchool() {
               strokeWeight(alpha*1.5f);
-   stroke(alpha, alpha, alpha,alpha);
+              stroke(alpha, alpha, alpha,alpha);
               line(x-vx, y-vy,x, y);
           }
       
