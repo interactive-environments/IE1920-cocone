@@ -102,7 +102,7 @@ class Ball{
     float g = random(255);
     float b = random(255);
     
-    while (r+g+b < 255) {
+    while (r+g+b < 255 || abs(r-b) < 100 || abs(r-g) < 100 || abs(r-b) < 100) {
       r = random(255);
       g = random(255);
       b = random(255);

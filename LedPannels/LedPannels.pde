@@ -10,19 +10,19 @@ PImage depthImg;
 import org.processing.wiki.triangulate.*;
 import java.util.Map;
 
-int START_STATE = 4;
+int START_STATE = 1;
 
 int minDepth =  775;
 int maxDepth = 895;
 int mode = START_STATE;
-PVector[] vectors1 = {new PVector(82, 186), new PVector(86, 188), new PVector(108, 359), new PVector(113, 359)};
-PVector[] vectors2 = {new PVector(81, 177), new PVector(196, 47), new PVector(93, 183), new PVector(200, 59)};
-PVector[] vectors3 = {new PVector(199, 47), new PVector(381, 48), new PVector(200, 56), new PVector(379, 56)};
-PVector[] vectors4 = {new PVector(386, 56), new PVector(484, 191), new PVector(381, 67), new PVector(477, 196)};
-PVector[] vectors5 = {new PVector(477, 201), new PVector(486, 200), new PVector(488, 377), new PVector(496, 377)};
+PVector[] vectors1 = {new PVector(103, 160), new PVector(109, 157), new PVector(129, 338), new PVector(134, 337)};
+PVector[] vectors2 = {new PVector(109, 152), new PVector(209, 24), new PVector(116, 161), new PVector(213, 35)};
+PVector[] vectors3 = {new PVector(215, 22), new PVector(396, 24), new PVector(213, 32), new PVector(396, 28)};
+PVector[] vectors4 = {new PVector(398, 28), new PVector(501, 163), new PVector(397, 34), new PVector(493, 168)};
+PVector[] vectors5 = {new PVector(495, 177), new PVector(502, 173), new PVector(497, 353), new PVector(504, 352)};
 
 
-PVector[] boxVectors = {new PVector(164, 86), new PVector(424, 112), new PVector(85, 470), new PVector(439, 470)};
+PVector[] boxVectors = {new PVector(219, 23), new PVector(399, 31), new PVector(127, 392), new PVector(488, 366)};
 
 int ledWidth = 1200;
 int ledHeight = 240;
@@ -34,9 +34,9 @@ PFont kaiZenFont;
 
 Button[] buttons = {
   new Button(100,800,320,64,7,color(0,0,0),color(255,255,255),"Fluid Brush",1),
-  new Button(530,800,320,64,7,color(0,0,0),color(255,255,255),"Koi Karper",2),
-  new Button(960,800,320,64,7,color(0,0,0),color(255,255,255),"Ice Brush",3),
-  new Button(1390,800,320,64,7,color(0,0,0),color(255,255,255),"Ball Catch",4)
+  new Button(800,800,320,64,7,color(0,0,0),color(255,255,255),"Koi Karper",2),
+  //new Button(960,800,320,64,7,color(0,0,0),color(255,255,255),"Ice Brush",3),
+  new Button(1500,800,320,64,7,color(0,0,0),color(255,255,255),"Ball Catch",4)
 };
 
 PVector[][] allVectors = {vectors1, vectors2, vectors3, vectors4, vectors5};
